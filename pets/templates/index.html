@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head> 
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="">
+
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="../" class="navbar-brand">Pets And Cure</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" ><button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#registro"><img src="{{ STATIC_URL }}img/huella"> Registra tu mascota </button></a></li>
+                        <li><a href="#" ><button type="button" class="btn btn-info" data-toggle="modal" data-target="#login"> Ingresar </button></a></li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <br>
+            <div class="page-header" id="banner">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <br>
+                        <a href="#" class="btn btn-default ">N&uacute;estros M&eacute;dicos</a><br><br>
+                        <a href="#" class="btn btn-default ">Preguntas Frecuentes</a><br></br>
+                        Siguenos: <img src="{{ STATIC_URL }}img/twitter.png" width="20" height="20">  |  <img src="{{ STATIC_URL }}img/facebook.png" width="19" height="19">  
+                    </div>
+                    <div class="col-lg-10" style="padding: 15px 15px 0 15px;">
+                        <div class="well sponsor">
+                            <a href="#" rel="nofollow" >
+                                <span style="float: left; margin-right: 15px;">
+                                    <img src="{{ STATIC_URL }}img/cat.jpg" width="175" height="135">
+                                </span>
+                            </a>
+                            <a href="#">
+                                <h4 style="margin-bottom: 0.4em;">Registra tu mascota</h4>
+                                <div class="clearfix">
+                                    <p>Registra tu mascota en nuestra plataforma para cuidarla</p>
+                                    <p>Es totalmente gratis!</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Descripcion
+            ================================================== -->
+            <div class="bs-docs-section">
+                <!-- Headings -->
+
+                <div class="row">
+
+                    <div class="col-lg-10">
+                        <div class="bs-component">
+                            <h2>Contamos con una base de conocimiento profesional y amplia en la medicina veterinaria.</h2>
+                            <p>Viral ethnic enim banjo shabby chic, vero plaid chambray slow-carb tempor. Normcore Etsy mustache actually, Wes Anderson et nostrud enim. Lo-fi food truck chia raw denim, occupy magna anim est. Cliche narwhal fap chambray dolore, flexitarian aute letterpress. Occaecat hella Carles distillery salvia single-origin coffee. Lo-fi locavore meh umami four loko. Nihil bicycle rights sriracha aesthetic, bitters trust fund meggings stumptown.
+
+                                Elit placeat Schlitz, non velit hoodie ullamco kitsch chillwave lomo. Pork belly assumenda mollit readymade next level. Mlkshk typewriter Bushwick, brunch sint ex selvage ethnic. Paleo vegan 3 wolf moon actually cred, consectetur Portland. Dreamcatcher PBR street art four loko incididunt pug. Next level lomo ethical irure. Gluten-free keytar cillum, American Apparel semiotics Marfa selfies Etsy Schlitz church-key cred consequat hoodie nulla.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <footer>
+                <div class="row" align="center">
+                    _______________________________________________________
+                    <div class="col-lg-12">
+
+                        <p>Todos los derechos reservados Pets And Cure</p>
+                        <p>2014 Colombia</p>
+                    </div>
+                </div>
+
+            </footer>
+
+            <!-- Modal LOGIN -->
+            <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">LOGIN</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="well bs-component">
+                                <form class="form-horizontal">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="inputEmail" class="col-lg-2 control-label">Usuario</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" id="inputEmail" placeholder="Usuario">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                                            <div class="col-lg-10">
+                                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>   
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <a href="inicio.html"  class="btn btn-primary">Ingresar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal REGISTRO -->
+            <div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">REGISTRO</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="well bs-component">
+                                <form class="form-horizontal">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="usuario" class="col-lg-2 control-label">Usuario</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" id="inputEmail" placeholder="Usuario">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                                            <div class="col-lg-10">
+                                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputPassword" class="col-lg-2 control-label">Confirmar Password</label>
+                                            <div class="col-lg-10">
+                                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>   
+                        </div>
+                        <div class="modal-footer" >
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <a href="index.html" class="btn btn-primary">Registrate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
