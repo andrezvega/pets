@@ -1,6 +1,5 @@
 pets
 ====
 
-Pets Diagnostic es un software para el cuidado de mascotas.
-Cuenta con una amplia gama de medicos veterinarios especialistas que crearán nuestros tratamientos y diagnosticos
-lo mejor de pets diagnostics es que es gratis al público.
+Pets Diagnostic es un software elaborado en Django que permite obtener un diagnóstico de tu mascota
+de acuerdo a los sintomas, soportado por medicos veterinarios especialistas con una amplia gama de conocimiento.
