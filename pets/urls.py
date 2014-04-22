@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^nuestros/medicos/$','principal.views.nuestrosMedicos'),
     url(r'^preguntas/frecuentes/$','principal.views.preguntasFrecuentes'),
     url(r'^bienvenido/$','principal.views.bienvenido'),
+    url(r'^cerrar/$', 'principal.views.cerrar'),
     
 )

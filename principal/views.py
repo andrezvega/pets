@@ -59,7 +59,7 @@ def inicio(request):
             if acceso is not None:
                 if acceso.is_active:
                     login(request, acceso)
-                    return render_to_response('bienvenido.html', context_instance=RequestContext(request))
+                    return HttpResponseRedirect('/bienvenido')
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))
             else:
@@ -70,6 +70,11 @@ def inicio(request):
 def bienvenido(request):
     
     usuario = request.user
-    return render_to_response('bienvenido.html', {'usuario':usuario,'request': request}, context_instance=RequestContext(request))
+    return render_to_response('bienvenido.html', {'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')
+def cerrar(request):
+    logout(request)
+    return HttpResponseRedirect('/')    
 
   
