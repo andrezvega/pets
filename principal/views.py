@@ -1,14 +1,18 @@
 #encoding:utf-8
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
+import pdb;
 
-""" PAQUETES USUARIOS  """
+
+""" Gestor de usuarios  """
 
 from django.contrib.auth.models import User
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required                       
+from django.contrib.auth.decorators import login_required           
 
 # Aquí va todo lo que esta en el index todo el contenido de la página inicial 
 
@@ -43,7 +47,7 @@ def registro(request):
 #________________________Fin registro    
 
 
-def login(request):
+def inicio(request):
     if not request.user.is_anonymous():
         return HttpResponseRedirect('/bienvenido')
     if request.method == 'POST':
@@ -55,9 +59,17 @@ def login(request):
             if acceso is not None:
                 if acceso.is_active:
                     login(request, acceso)
-                    return render_to_response('index.html', context_instance=RequestContext(request))
+                    return render_to_response('bienvenido.html', context_instance=RequestContext(request))
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))
             else:
                 return render_to_response('index.html', context_instance=RequestContext(request))
       
+
+@login_required(login_url='/inicio')
+def bienvenido(request):
+    
+    usuario = request.user
+    return render_to_response('bienvenido.html', {'usuario':usuario,'request': request}, context_instance=RequestContext(request))
+
+  

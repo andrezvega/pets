@@ -1,0 +1,39 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Bienvenido {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 style="margin-bottom: 0.4em;"> &iquest; Que sintomas tiene su gato Tom ?</h3>
+        <div class="clearfix">
+            
+                <h5>1) &iquest; Ha presentado vomitos ?</h5>
+                <div style=" margin-left: 40px;">
+                    <label> Si </label>
+                    <input type="radio" name="vomitos">
+                    <label>No</label> 
+                    <input type="radio" name="vomitos">
+                </div>
+                <h5>2) &iquest; Ha presentado fiebre  ?</h5>
+                <div style=" margin-left: 40px;">
+                    <label> Si </label>
+                    <input type="radio" name="fiebre">
+                    <label>No</label> 
+                    <input type="radio" name="fiebre">
+                </div>
+                <h5>2) &iquest; Ha presentado diarrea  ?</h5>
+                <div style=" margin-left: 40px;">
+                    <label> Si </label>
+                    <input type="radio" name="diarrea">
+                    <label>No</label> 
+                    <input type="radio" name="diarrea">
+                </div>
+                <h5>2) &iquest; Presenta sue&ntilde;o  ?</h5>
+                <div style=" margin-left: 40px;">
+                    <label> Si </label>
+                    <input type="radio" name="sueno">
+                    <label>No</label> 
+                    <input type="radio" name="sueno">
+                </div>
+                <a href="#" style="padding: 5px 5px 5px 5px; margin-left: 30px; margin-top:5px;   " class="btn btn-info">Siguiente</a>
+        </div>
+    </div>
+{% endblock %}
