@@ -73,6 +73,9 @@ TEMPLATE_DIRS = (
     os.path.join(RUTA_PROYECTO,'pets/templates'),
 )
 
+MEDIA_ROOT = os.path.join(RUTA_PROYECTO,'pets/carga')
+MEDIA_URL = 'http://127.0.0.1:8000/media/'
+
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.

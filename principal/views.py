@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 import pdb;
+from principal.models import Mascotas
 
 
 """ Gestor de usuarios  """
@@ -68,9 +69,9 @@ def inicio(request):
 
 @login_required(login_url='/inicio')
 def bienvenido(request):
-    
+    mascotas = Mascotas.objects.all()
     usuario = request.user
-    return render_to_response('bienvenido.html', {'usuario':usuario}, context_instance=RequestContext(request))
+    return render_to_response('bienvenido.html', {'mascotas':mascotas,'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/ingresar')
 def cerrar(request):
