@@ -2,6 +2,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
+from principal.forms import MascotasForm
 import pdb;
 from principal.models import Mascotas
 
@@ -69,9 +70,22 @@ def inicio(request):
 
 @login_required(login_url='/inicio')
 def bienvenido(request):
-    mascotas = Mascotas.objects.all()
     usuario = request.user
+    mascotas = Mascotas.objects.filter(usuario_id=usuario.id)
     return render_to_response('bienvenido.html', {'mascotas':mascotas,'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/inicio')
+def agregarMascota(request):
+    if request.method=='POST':
+        formulario = MascotasForm(request.POST, request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return HttpResponseRedirect('/agregar/mascota')
+    else:            
+        usuario = request.user
+        formulario = MascotasForm()
+        return render_to_response('agregar_mascota.html', {'formulario':formulario,'usuario':usuario}, context_instance=RequestContext(request))
+
 
 @login_required(login_url='/ingresar')
 def cerrar(request):

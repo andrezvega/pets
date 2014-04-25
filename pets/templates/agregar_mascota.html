@@ -1,0 +1,46 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Bienvenido {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 align="center"> Mis Mascotas </h3>
+        <div class="clearfix">
+                  <div class="well bs-component">
+                                <form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                            <label for="usuario" class="col-lg-2 control-label">Nombre</label>
+                                            <div class="col-lg-10">
+                                                <input type="email" class="form-control" id="id_nombre"  name="nombre" placeholder="Nombre" require>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                            <label for="usuario" class="col-lg-2 control-label">Edad</label>
+                                            <div class="col-lg-10">
+                                                <input type="email" class="form-control" id="id_edad"  name="edad" placeholder="Edad" require>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                            <div class="col-lg-10">
+                                                <input type="hidden" class="form-control" id="id_edad"  name="edad" placeholder="Usuario" value="{{usuario.username}}" >
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                    </fieldset>
+                            </div>   
+                        </div>
+                        <div class="modal-footer" >
+                            <a href="/bienvenido" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                            <input type='submit' class="btn btn-primary" value='Reegistrar'/>
+                        </div>
+                        </form>
+                    </div>
+
+        </div>
+    </div>
+{% endblock %}

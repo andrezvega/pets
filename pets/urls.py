@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^preguntas/frecuentes/$','principal.views.preguntasFrecuentes'),
     url(r'^bienvenido/$','principal.views.bienvenido'),
     url(r'^cerrar/$', 'principal.views.cerrar'),
+    url(r'^agregar/mascota/$','principal.views.agregarMascota'),
     url(r'^media/(?P<path>.*)$','django.views.static.serve',
 		{'document_root':settings.MEDIA_ROOT,}
 	),
