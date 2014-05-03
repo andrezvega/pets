@@ -76,6 +76,21 @@ def bienvenido(request):
 
 @login_required(login_url='/inicio')
 def agregarMascota(request):
+    usuario = request.user
+    
+    if request.POST:
+        try:
+            mascota = Mascotas()
+            mascota.nombre = request.POST['nombre']
+            mascota.edad = request.POST['edad']
+            mascota.usuario = request.user
+            mascota.imagen =  request.FILES['imagen']
+            mascota.tipo = request.POST['tipo']
+            mascota.save()
+            estado = 1
+        except :
+            estado = 2
+        return render_to_response('agregar_mascota.html', {'usuario':usuario,'estado':estado}, context_instance=RequestContext(request))
     if request.method=='POST':
         formulario = MascotasForm(request.POST, request.FILES)
         if formulario.is_valid():
