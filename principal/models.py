@@ -11,4 +11,25 @@ class Mascotas(models.Model):
 	imagen = models.ImageField(upload_to='imagenMascota', verbose_name='Imágen')			
 
 	def __unicode__(self):
-		return self.nombre		
+		return self.nombre
+
+class especialidad(models.Model):
+	nombre = models.CharField(max_length=150)
+
+	def __unicode__(self):
+		return self.nombre
+
+class medicos(models.Model):
+
+	cedula = models.CharField(max_length=150)
+	nombres = models.CharField(max_length=150)
+	apellidos = models.CharField(max_length=150)
+	direccion = models.CharField(max_length=150)
+	telefono = models.IntegerField(max_length=15)
+	especialidad = models.ForeignKey(especialidad)
+
+	def __unicode__(self):
+		return self.cedula
+
+
+

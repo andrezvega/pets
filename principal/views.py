@@ -103,6 +103,37 @@ def agregarMascota(request):
 
 
 @login_required(login_url='/ingresar')
+def modificarMascota(request,idMascota):
+        usuario = request.user
+        mascota = Mascotas.objects.get(id=idMascota)
+        if request.POST:
+            try:
+                mascota.nombre = request.POST['nombre']
+                mascota.edad = request.POST['edad']
+                mascota.tipo = request.POST['tipo']                    
+                mascota.save()
+                estado = 1
+            except :
+                estado = 2
+            return render_to_response('modificar_mascota.html', {'mascota':mascota,'usuario':usuario,'estado':estado}, context_instance=RequestContext(request))
+        else:            
+            formulario = MascotasForm()
+        return render_to_response('modificar_mascota.html', {'formulario':formulario,'mascota':mascota,'usuario':usuario}, context_instance=RequestContext(request)) 
+
+@login_required(login_url='/ingresar')
+def eliminarMascota(request,idMascota):        
+        usuario = request.user
+        mascota = Mascotas.objects.filter(id=idMascota)
+        try:
+            mascota.delete()
+            estado=1 
+        except :
+            estado = 2
+        mascotas = Mascotas.objects.filter(usuario_id=usuario.id)
+        return render_to_response('bienvenido.html', {'mascotas':mascotas,'usuario':usuario,'estado':estado}, context_instance=RequestContext(request))
+
+
+@login_required(login_url='/ingresar')
 def cerrar(request):
     logout(request)
     return HttpResponseRedirect('/')    

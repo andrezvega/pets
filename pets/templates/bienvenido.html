@@ -4,9 +4,21 @@
     <div class="well sponsor">
         <h3 align="center"> Mis Mascotas </h3>
         <div class="clearfix">
+                {% if estado == 2 %}
+                    <div class="alert alert-dismissable alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Uy!</strong> <a href="#" class="alert-link">Ha ocurrido un error eliminando</a> 
+                    </div> 
+                {% endif%}
+                {% if estado == 1 %}
+                    <div class="alert alert-dismissable alert-success">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Ok !</strong> Ha eliminado exitosamente su mascota .
+                    </div>
+                {%endif%}  
                 <a href="/agregar/mascota" style="padding: 5px 5px 5px 5px; margin-left: 30px; margin-top:5px;   " class="btn btn-info">Agregar mascota</a>
                 {% for lista in mascotas %}
-                    <h3 style=" margin-left: 40px;"> {{ lista.nombre }} </h3>
+                    <h3 style=" margin-left: 40px;"> {{ lista.nombre }} <a href="/modificar/mascota/{{ lista.id }}">  <img style="padding-left: 10px;" src="{{ STATIC_URL }}img/editar.png" title="Modificar"></a> | <a href="/eliminar/mascota/{{ lista.id }}"> <img style="padding-left: 10px;" src="{{ STATIC_URL }}img/eliminar.png" title="Eliminar"> </a> </h3>
                     <div style=" margin-left: 40px;"></div>
                     <div style=" margin-left: 40px;" >
                         <img src="{{MEDIA_URL}}{{lista.imagen}}" class="img-responsive" >

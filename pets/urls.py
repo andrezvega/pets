@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
-
+from principal import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     url(r'^bienvenido/$','principal.views.bienvenido'),
     url(r'^cerrar/$', 'principal.views.cerrar'),
     url(r'^agregar/mascota/$','principal.views.agregarMascota'),
+    url(r'^modificar/mascota/(?P<idMascota>[-\w]+)/$', views.modificarMascota),
+    url(r'^eliminar/mascota/(?P<idMascota>[-\w]+)/$', views.eliminarMascota),
     url(r'^media/(?P<path>.*)$','django.views.static.serve',
 		{'document_root':settings.MEDIA_ROOT,}
 	),
