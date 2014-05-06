@@ -32,5 +32,11 @@ class Medicos(models.Model):
 	def __unicode__(self):
 		return self.cedula
 
+class ComplementoUsuario(models.Model):
+
+	direccion = models.CharField( max_length=150 )  
+	telefono = models.IntegerField( max_length=15)
+	imagen = models.ImageField(upload_to='imagenUsuario', verbose_name='Imágen')
+	usuario = models.ForeignKey(User)
 
 

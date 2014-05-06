@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from principal.forms import MascotasForm
 import pdb;
 from principal.models import Mascotas
+from principal.models import Medicos
+from principal.models import ComplementoUsuario
 
 
 """ Gestor de usuarios  """
@@ -71,8 +73,12 @@ def inicio(request):
 @login_required(login_url='/inicio')
 def bienvenido(request):
     usuario = request.user
+    try: 
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=0        
     mascotas = Mascotas.objects.filter(usuario_id=usuario.id)
-    return render_to_response('bienvenido.html', {'mascotas':mascotas,'usuario':usuario}, context_instance=RequestContext(request))
+    return render_to_response('bienvenido.html', {'mascotas':mascotas,'usuario':usuario,'informacionUsuario':informacionUsuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/inicio')
 def agregarMascota(request):
@@ -132,6 +138,43 @@ def eliminarMascota(request,idMascota):
         mascotas = Mascotas.objects.filter(usuario_id=usuario.id)
         return render_to_response('bienvenido.html', {'mascotas':mascotas,'usuario':usuario,'estado':estado}, context_instance=RequestContext(request))
 
+
+@login_required(login_url='/ingresar')
+def medicos(request):
+    usuario = request.user
+    query = " select medicos.*,especialidad.nombre as nombreEspecialidad  from principal_medicos as medicos, principal_especialidad as especialidad where medicos.especialidad_id = especialidad.id "
+    medicos=Medicos.objects.raw(query)
+    return render_to_response('medicos.html', {'usuario':usuario,'medicos':medicos}, context_instance=RequestContext(request))
+
+
+@login_required(login_url='/ingresar')
+def perfil(request):
+    usuario = request.user
+    mascotas = Mascotas.objects.filter(usuario_id=usuario.id)
+    user = User.objects.get(id=usuario.id)
+
+    if request.POST:
+        user.first_name = request.POST['nombres']
+        user.last_name = request.POST['apellidos']
+        user.save() 
+        try: 
+            complemento = ComplementoUsuario.objects.get(usuario_id = usuario.id )
+            informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+            complemento.imagen= request.FILES['imagen']
+        except:
+            complemento = 1    
+            if complemento == 1 :
+                complemento = ComplementoUsuario()
+                complemento.imagen= request.FILES['imagen']
+                complemento.usuario= request.user
+            else:
+                complemento.imagen= request.FILES['imagen']
+        complemento.save()
+        return render_to_response('bienvenido.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas':mascotas}, context_instance=RequestContext(request))                        
+    else:
+        formulario = UserCreationForm()
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+        return render_to_response('perfil.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'formulario':formulario}, context_instance=RequestContext(request))            
 
 @login_required(login_url='/ingresar')
 def cerrar(request):

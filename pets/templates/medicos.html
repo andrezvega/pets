@@ -1,0 +1,20 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Medicos {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 align="center"> N&uacute;estros M&eacute;dicos </h3>
+        <div class="clearfix">
+                {% for lista in medicos %}
+                    <div style=" margin-left: 40px;" >
+                        {% if lista.imagen %}
+                            <img src="{{MEDIA_URL}}{{lista.imagen}}" class="img-responsive" >
+                        {% endif%}
+                    </div>
+                    <h3 style=" margin-left: 40px;"> {{ lista.nombres }} {{ lista.apellidos }} </h3>
+                    <div style=" margin-left: 40px;"> Especialista en {{ lista.nombreEspecialidad }} </div>
+                    <div style=" margin-left: 40px;"> {{ lista.direccion }} </div>
+                    <div style=" margin-left: 40px;"> {{ lista.telefono }} </div>
+                {%endfor%}
+        </div>
+    </div>
+{% endblock %}
