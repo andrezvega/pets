@@ -28,9 +28,9 @@
                         </li>
                         <li>
                             {% if informacionUsuario.imagen %}
-                                <img src="{{MEDIA_URL}}{{informacionUsuario.imagen}}" class="img-responsive" width="100" height="80" >
+                                <img src="{{MEDIA_URL}}{{informacionUsuario.imagen}}" class="img-responsive" width="80" height="60" >
                             {% else %}
-                                <img style="padding-left: 10px;" src="{{ STATIC_URL }}img/perfil.jpg" width="100" height="80">
+                                <img style="padding-left: 10px;" src="{{ STATIC_URL }}img/perfil.jpg" width="80" height="60">
                             {% endif%}
                             <a href="/cerrar"  style="margin-left: -5px; hover:  "> Cerrar Sesi&oacute;n</a>
                         </li>

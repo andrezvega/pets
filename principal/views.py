@@ -170,10 +170,14 @@ def perfil(request):
             else:
                 complemento.imagen= request.FILES['imagen']
         complemento.save()
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
         return render_to_response('bienvenido.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas':mascotas}, context_instance=RequestContext(request))                        
     else:
         formulario = UserCreationForm()
-        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+        try:
+            informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+        except:
+            informacionUsuario=1    
         return render_to_response('perfil.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'formulario':formulario}, context_instance=RequestContext(request))            
 
 @login_required(login_url='/ingresar')
