@@ -187,30 +187,26 @@ def perfil(request):
 @login_required(login_url='/ingresar')
 def pregunta(request):
     formulario = PreguntaForm()
+    usuario = request.user
     try:
         informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
     except:
         informacionUsuario=1
-    usuario = request.user
-    preguntas = Pregunta.objects.filter(usuario_id=usuario.id)
+    preguntas = Pregunta.objects.filter(usuario_id=usuario.id).order_by('-fecha')
     if request.POST:
         try:
             pregunta = Pregunta()
             pregunta.pregunta = request.POST['pregunta']
             pregunta.descripcion = request.POST['descripcion']
-            pregunta.fecha = datetime.date.today()
+            pregunta.fecha = datetime.datetime.now()
             pregunta.usuario= request.user
             pregunta.save()
             estado = 1
         except :
             estado = 2
-        return render_to_response('preguntas.html', {'usuario':usuario,'estado':estado,'formulario':formulario,'informacionUsuario':informacionUsuario}, context_instance=RequestContext(request))
+        return render_to_response('preguntas.html', {'usuario':usuario,'estado':estado,'formulario':formulario,'informacionUsuario':informacionUsuario,'preguntas':preguntas}, context_instance=RequestContext(request))
     else:       
         return render_to_response('preguntas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'preguntas':preguntas,'formulario':formulario}, context_instance=RequestContext(request))    
-
-
-
-
 
 
 @login_required(login_url='/ingresar')

@@ -41,7 +41,7 @@ class ComplementoUsuario(models.Model):
 
 class Pregunta(models.Model):
 	pregunta = models.CharField(max_length=250)
-	descipcion = models.TextField()
+	descripcion = models.TextField()
 	fecha = models.DateTimeField()
 	usuario = models.ForeignKey(User)
 	

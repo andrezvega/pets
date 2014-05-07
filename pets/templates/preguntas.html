@@ -21,9 +21,8 @@
                 {% for lista in preguntas %}
                     <h3 style=" margin-left: 40px;"> {{ lista.pregunta }} </h3>
                     <div style=" margin-left: 40px; "> {{ lista.descripcion }}  </div>
-                    <div style=" margin-left: 40px;" >
-                        <img src="{{MEDIA_URL}}{{lista.imagen}}" class="img-responsive" >
-                    </div>
+                    <div style=" margin-left: 40px; "> <b>{{ lista.fecha }}</b>  </div>
+                    <div style=" margin-left: 40px; "> <a href="/respuesta/"> Ver respuesta</a>  </div>
                    {% empty %}
                     <div class="col-md-9 padding">
                         <div class="panel panel-default">
