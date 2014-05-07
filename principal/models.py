@@ -39,4 +39,12 @@ class ComplementoUsuario(models.Model):
 	imagen = models.ImageField(upload_to='imagenUsuario', verbose_name='Imágen')
 	usuario = models.ForeignKey(User)
 
+class Pregunta(models.Model):
+	pregunta = models.CharField(max_length=250)
+	descipcion = models.TextField()
+	fecha = models.DateTimeField()
+	usuario = models.ForeignKey(User)
+	
+	def __unicode__(self):
+		return self.pregunta
 

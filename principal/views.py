@@ -3,10 +3,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from principal.forms import MascotasForm
+from principal.forms import PreguntaForm
 import pdb;
 from principal.models import Mascotas
 from principal.models import Medicos
+from principal.models import Pregunta
 from principal.models import ComplementoUsuario
+import datetime
 
 
 """ Gestor de usuarios  """
@@ -178,7 +181,37 @@ def perfil(request):
             informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
         except:
             informacionUsuario=1    
-        return render_to_response('perfil.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'formulario':formulario}, context_instance=RequestContext(request))            
+        return render_to_response('perfil.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'formulario':formulario}, context_instance=RequestContext(request))
+
+
+@login_required(login_url='/ingresar')
+def pregunta(request):
+    formulario = PreguntaForm()
+    try:
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=1
+    usuario = request.user
+    preguntas = Pregunta.objects.filter(usuario_id=usuario.id)
+    if request.POST:
+        try:
+            pregunta = Pregunta()
+            pregunta.pregunta = request.POST['pregunta']
+            pregunta.descripcion = request.POST['descripcion']
+            pregunta.fecha = datetime.date.today()
+            pregunta.usuario= request.user
+            pregunta.save()
+            estado = 1
+        except :
+            estado = 2
+        return render_to_response('preguntas.html', {'usuario':usuario,'estado':estado,'formulario':formulario,'informacionUsuario':informacionUsuario}, context_instance=RequestContext(request))
+    else:       
+        return render_to_response('preguntas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'preguntas':preguntas,'formulario':formulario}, context_instance=RequestContext(request))    
+
+
+
+
+
 
 @login_required(login_url='/ingresar')
 def cerrar(request):

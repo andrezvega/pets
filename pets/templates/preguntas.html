@@ -1,0 +1,78 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Medicos {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 align="center"> Mis preguntas </h3>
+        <a href="#" ><button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#pregunta"> Agregar Pregunta </button></a>
+        <br><br>
+        <div class="clearfix">
+                {% if estado == 2 %}
+                    <div class="alert alert-dismissable alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Uy!</strong> <a href="#" class="alert-link">Ha ocurrido un error al crear la pregunta</a> 
+                    </div> 
+                {% endif%}
+                {% if estado == 1 %}
+                    <div class="alert alert-dismissable alert-success">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Ok !</strong> Ha agregado exitosamente su pregunta .
+                    </div>
+                {%endif%}  
+                {% for lista in preguntas %}
+                    <h3 style=" margin-left: 40px;"> {{ lista.pregunta }} </h3>
+                    <div style=" margin-left: 40px; "> {{ lista.descripcion }}  </div>
+                    <div style=" margin-left: 40px;" >
+                        <img src="{{MEDIA_URL}}{{lista.imagen}}" class="img-responsive" >
+                    </div>
+                   {% empty %}
+                    <div class="col-md-9 padding">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p class="lead"></p>
+                                <h3> No haz hecho pregunta </h3>
+                            </div>
+                        </div>
+                    </div> 
+                {%endfor%}
+        </div>
+    </div>
+    <!-- Modal REGISTRO -->
+            <div class="modal fade" id="pregunta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Agregar Pregunta</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="well bs-component">
+                                <form class="form-horizontal" id='formulario' method='post' action='/preguntas/'>{% csrf_token %}
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                            <label for="pregunta" class="col-lg-2 control-label">Pregunta</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" id="id_pregunta"  name="pregunta" placeholder="pregunta" require>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="descripcion" class="col-lg-2 control-label">Descripcion</label>
+                                            <div class="col-lg-10">
+                                                <textarea name="descripcion" id="id_descripcion" required>  </textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </fieldset>
+                            </div>   
+                        </div>
+                        <div class="modal-footer" >
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <input type='submit' class="btn btn-primary" value='Crear'/>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
