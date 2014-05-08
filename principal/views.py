@@ -9,6 +9,7 @@ from principal.models import Mascotas
 from principal.models import Medicos
 from principal.models import Pregunta
 from principal.models import ComplementoUsuario
+from principal.models import Vacuna
 import datetime
 
 
@@ -207,6 +208,25 @@ def pregunta(request):
         return render_to_response('preguntas.html', {'usuario':usuario,'estado':estado,'formulario':formulario,'informacionUsuario':informacionUsuario,'preguntas':preguntas}, context_instance=RequestContext(request))
     else:       
         return render_to_response('preguntas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'preguntas':preguntas,'formulario':formulario}, context_instance=RequestContext(request))    
+
+@login_required(login_url='/ingresar')
+def vacunas(request):
+    usuario = request.user
+    try:
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=1
+
+    if request.POST:
+        vacuna = Vacuna()
+        vacunas = request.POST['vacuna']
+        for v in vacunas:
+            
+
+    vacunas = Vacuna.objects.all()    
+    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas}, context_instance=RequestContext(request))    
+
+
 
 
 @login_required(login_url='/ingresar')

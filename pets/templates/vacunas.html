@@ -1,0 +1,24 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Medicos {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 align="center"> Vacunas </h3>
+        <div class="clearfix">
+            <form name="" method="post" action="" >
+                {% for lista in vacunas %}
+                    <h3 style=" margin-left: 40px;"> {{ lista.titulo }} </h3>
+                    <div style=" margin-left: 40px;"><input type="checkbox" value="{{ lista.id }}" name="vacuna[]" > {{ lista.descripcion }} </div>
+                    {% empty %}
+                    <div class="col-md-9 padding">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p class="lead"></p>
+                                <h3> No hay vacunas programadas </h3>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}
+            </form>   
+        </div>
+    </div>
+{% endblock %}

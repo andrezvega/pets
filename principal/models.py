@@ -48,3 +48,11 @@ class Pregunta(models.Model):
 	def __unicode__(self):
 		return self.pregunta
 
+class Vacuna(models.Model):
+	 
+	titulo = models.CharField(max_length=250)
+	descripcion = models.TextField()
+	animal = models.CharField(max_length=250)
+	def __unicode__(self):
+		return self.titulo		
+
