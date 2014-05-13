@@ -10,7 +10,6 @@ from principal.models import Medicos
 from principal.models import Pregunta
 from principal.models import ComplementoUsuario
 from principal.models import Vacuna
-from principal.models import VacunaUsuario
 import datetime
 
 
@@ -223,16 +222,13 @@ def vacunas(request):
         informacionUsuario=1
 
     if request.POST:
-        vacunaObj = VacunaUsuario()
         vacunaId = request.POST['vacuna[]']
         for vac in vacunaId:
             v = Vacuna.objects.get(id = vac)
-            vacunaObj.vacuna = v
-            vacunaObj.usuario = request.user
-            vacunaObj.save()
-    vacunas = Vacuna.objects.all()
-    vacunaUsuario = VacunaUsuario.objects.all()    
-    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas,'vacunaUsuario':vacunaUsuario}, context_instance=RequestContext(request))    
+            v.aplicada = 1
+            v.save()
+    vacunas = Vacuna.objects.filter(aplicada=0) 
+    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas}, context_instance=RequestContext(request))    
 
 @login_required(login_url='/ingresar')
 def cerrar(request):

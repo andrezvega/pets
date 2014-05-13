@@ -53,16 +53,11 @@ class Vacuna(models.Model):
 	titulo = models.CharField(max_length=250)
 	descripcion = models.TextField()
 	animal = models.CharField(max_length=250)
+	aplicada = models.CharField(max_length=1)
 	def __unicode__(self):
 		return self.titulo	
 
-class VacunaUsuario(models.Model):
-	 
-	vacuna = models.ForeignKey(Vacuna)
-	usuario = models.ForeignKey(User)
-
-	def __unicode__(self):
-		return self.vacuna		
+	
 
 				
 
