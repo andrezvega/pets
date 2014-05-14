@@ -216,6 +216,7 @@ def pregunta(request):
 @login_required(login_url='/ingresar')
 def vacunas(request):
     usuario = request.user
+    estado=0
     try:
         informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
     except:
