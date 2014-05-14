@@ -226,11 +226,15 @@ def vacunas(request):
         for vac in vacunaId:
             opcion = vac.isdigit()
             if(opcion):
-                v = Vacuna.objects.get(id = vac)
-                v.aplicada = 1
-                v.save()
+                try:
+                    v = Vacuna.objects.get(id = vac)
+                    v.aplicada = 1
+                    v.save()
+                    estado = 1
+                except:
+                    estado = 2    
     vacunas = Vacuna.objects.filter(aplicada=0) 
-    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas}, context_instance=RequestContext(request))    
+    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas,'estado':estado}, context_instance=RequestContext(request))    
 
 @login_required(login_url='/ingresar')
 def cerrar(request):

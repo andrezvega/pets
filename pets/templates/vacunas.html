@@ -4,6 +4,18 @@
     <div class="well sponsor">
         <h3 align="center"> Vacunas </h3>
         <div class="clearfix">
+            {% if estado == 2 %}
+                    <div class="alert alert-dismissable alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Uy!</strong> <a href="#" class="alert-link">Ha ocurrido un error al aplicar la vacuna</a> 
+                    </div> 
+                {% endif%}
+                {% if estado == 1 %}
+                    <div class="alert alert-dismissable alert-success">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>Ok !</strong> Ha aplicado una nueva vacuna 
+                    </div>
+                {%endif%}  
             <form name="" method="post" action="/vacunas/" >{% csrf_token %}
                 {% for lista in vacunas %}
                     <h3 style=" margin-left: 40px;"> {{ lista.titulo }} </h3>
