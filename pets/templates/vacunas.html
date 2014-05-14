@@ -8,7 +8,7 @@
                 {% for lista in vacunas %}
                     <h3 style=" margin-left: 40px;"> {{ lista.titulo }} </h3>
 
-                                    <div style=" margin-left: 40px;"><input type="checkbox" value=" {{lista.id }}" name="vacuna[]" > {{lista.descripcion}} </div> 
+                                    <div style=" margin-left: 40px;"><input type="checkbox" value="{{lista.id }}" name="vacuna[]" > {{lista.descripcion}} </div> 
                             
                     {% empty %}
                     <div class="col-md-9 padding">

@@ -224,9 +224,11 @@ def vacunas(request):
     if request.POST:
         vacunaId = request.POST['vacuna[]']
         for vac in vacunaId:
-            v = Vacuna.objects.get(id = vac)
-            v.aplicada = 1
-            v.save()
+            opcion = vac.isdigit()
+            if(opcion):
+                v = Vacuna.objects.get(id = vac)
+                v.aplicada = 1
+                v.save()
     vacunas = Vacuna.objects.filter(aplicada=0) 
     return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas}, context_instance=RequestContext(request))    
 
