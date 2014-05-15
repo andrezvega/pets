@@ -55,8 +55,14 @@ class Vacuna(models.Model):
 	animal = models.CharField(max_length=250)
 	aplicada = models.CharField(max_length=1)
 	def __unicode__(self):
-		return self.titulo	
+		return self.titulo
 
+
+class Peluqueria(models.Model):
+	 
+	fecha = models.DateField()
+	mascota = models.ForeignKey(Mascotas)
+	
 	
 
 				

@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^eliminar/mascota/(?P<idMascota>[-\w]+)/$', views.eliminarMascota),
     url(r'^perfil/$','principal.views.perfil'),
     url(r'^medicos/$','principal.views.medicos'),
+    url(r'^peluqueria/$','principal.views.peluqueria'),
     url(r'^media/(?P<path>.*)$','django.views.static.serve',
 		{'document_root':settings.MEDIA_ROOT,}
 	),

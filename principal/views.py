@@ -10,6 +10,8 @@ from principal.models import Medicos
 from principal.models import Pregunta
 from principal.models import ComplementoUsuario
 from principal.models import Vacuna
+from principal.models import Peluqueria
+
 import datetime
 
 
@@ -246,6 +248,9 @@ def vacunas(request):
     return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'vacunas':vacunas,'estado':estado}, context_instance=RequestContext(request))    
 
 @login_required(login_url='/ingresar')
+
+
+@login_required(login_url='/ingresar')
 def cerrar(request):
     logout(request)
     return HttpResponseRedirect('/')    
@@ -260,3 +265,29 @@ def principal(request):
         informacionUsuario=1
     mascotas=Mascotas.objects.exclude(usuario=usuario.id).order_by('?')
     return render_to_response('principal.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas': mascotas}, context_instance=RequestContext(request))    
+
+@login_required(login_url='/ingresar')    
+def peluqueria(request):
+    usuario = request.user
+    estado = 0
+    try:
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=1
+    if request.POST:    
+        try:
+            peluqueria = Peluqueria() 
+            peluqueria.fecha = request.POST['fecha']
+            m = Mascotas.objects.get(id=request.POST['mascota'])
+            peluqueria.mascota = m
+            peluqueria.save()
+            estado = 1
+        except:
+            estado = 2    
+    mascotas = Mascotas.objects.filter(id=usuario.id)
+    try:
+        peluqueria = Peluqueria.objects.all().order_by('-fecha')    
+        fechaPeluqueria = peluqueria[0]
+    except:
+        fechaPeluqueria = False    
+    return render_to_response('peluqueria.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas':mascotas,'estado':estado,'fechaPeluqueria':fechaPeluqueria}, context_instance=RequestContext(request))
