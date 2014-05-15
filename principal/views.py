@@ -120,7 +120,12 @@ def modificarMascota(request,idMascota):
             try:
                 mascota.nombre = request.POST['nombre']
                 mascota.edad = request.POST['edad']
-                mascota.tipo = request.POST['tipo']                    
+                mascota.tipo = request.POST['tipo']
+                try:
+                    mascota.imagen = request.FILES['imagen']
+                except:
+                    def __unicode__(self):
+                        mascota.imagen = self.imagen                         
                 mascota.save()
                 estado = 1
             except :
