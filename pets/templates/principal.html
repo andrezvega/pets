@@ -1,0 +1,19 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Bienvenido {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 align="center"> Nuestras mascotas </h3>
+        <div class="clearfix">
+                
+                {% for lista in mascotas %}
+                    <div style=" margin-left: 40px;" >
+                        <img src="{{MEDIA_URL}}{{lista.imagen}}" class="img-responsive" width="100" height="100">
+                    </div>
+                    <h4 style=" margin-left: 40px;"> {{ lista.nombre }} </h4>
+                    <h5 style=" margin-left: 40px;"> Nacio el {{ lista.edad }} </h5>
+                    <h5 style=" margin-left: 40px;"> De {{ lista.usuario }} </h5>
+                    <br>
+                {%endfor%}
+        </div>
+    </div>
+{% endblock %}

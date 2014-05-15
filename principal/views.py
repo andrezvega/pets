@@ -57,7 +57,7 @@ def registro(request):
 
 def inicio(request):
     if not request.user.is_anonymous():
-        return HttpResponseRedirect('/bienvenido')
+        return HttpResponseRedirect('/principal')
     if request.method == 'POST':
         formulario = AuthenticationForm(request.POST)
         if formulario.is_valid:
@@ -67,7 +67,7 @@ def inicio(request):
             if acceso is not None:
                 if acceso.is_active:
                     login(request, acceso)
-                    return HttpResponseRedirect('/bienvenido')
+                    return HttpResponseRedirect('/principal')
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))
             else:
@@ -87,7 +87,10 @@ def bienvenido(request):
 @login_required(login_url='/inicio')
 def agregarMascota(request):
     usuario = request.user
-    
+    try: 
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=0 
     if request.POST:
         try:
             mascota = Mascotas()
@@ -247,4 +250,13 @@ def cerrar(request):
     logout(request)
     return HttpResponseRedirect('/')    
 
-  
+@login_required(login_url='/ingresar')
+def principal(request):
+    usuario = request.user
+    estado = 0
+    try:
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=1
+    mascotas=Mascotas.objects.exclude(usuario=usuario.id).order_by('?')
+    return render_to_response('principal.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas': mascotas}, context_instance=RequestContext(request))    
