@@ -69,7 +69,10 @@ def inicio(request):
             if acceso is not None:
                 if acceso.is_active:
                     login(request, acceso)
-                    return HttpResponseRedirect('/principal')
+                    if acceso.is_staff:
+                        return HttpResponseRedirect('/principalMedico')
+                    else:
+                        return HttpResponseRedirect('/principal')    
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))
             else:
@@ -200,6 +203,41 @@ def perfil(request):
 
 
 @login_required(login_url='/ingresar')
+def perfilMedico(request):
+    usuario = request.user
+    mascotas = Mascotas.objects.filter(usuario_id=usuario.id)
+    user = User.objects.get(id=usuario.id)
+
+    if request.POST:
+        user.first_name = request.POST['nombres']
+        user.last_name = request.POST['apellidos']
+        user.save() 
+        try: 
+            complemento = ComplementoUsuario.objects.get(usuario_id = usuario.id )
+            informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+            complemento.imagen= request.FILES['imagen']
+        except:
+            complemento = 1    
+            if complemento == 1 :
+                complemento = ComplementoUsuario()
+                complemento.imagen= request.FILES['imagen']
+                complemento.usuario= request.user
+            else:
+                complemento.imagen= request.FILES['imagen']
+        complemento.save()
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+        return render_to_response('principalMedico.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas':mascotas}, context_instance=RequestContext(request))                        
+    else:
+        formulario = UserCreationForm()
+        try:
+            informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+        except:
+            informacionUsuario=1    
+        return render_to_response('perfilMedico.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'formulario':formulario}, context_instance=RequestContext(request))
+
+
+
+@login_required(login_url='/ingresar')
 def pregunta(request):
     formulario = PreguntaForm()
     usuario = request.user
@@ -266,10 +304,22 @@ def principal(request):
     mascotas=Mascotas.objects.exclude(usuario=usuario.id).order_by('?')
     return render_to_response('principal.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas': mascotas}, context_instance=RequestContext(request))    
 
+@login_required(login_url='/ingresar')
+def principalMedico(request):
+    usuario = request.user
+    estado = 0
+    try:
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=1
+    mascotas=Mascotas.objects.exclude(usuario=usuario.id).order_by('?')
+    return render_to_response('principalMedico.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas': mascotas}, context_instance=RequestContext(request))  
+
 @login_required(login_url='/ingresar')    
 def peluqueria(request):
     usuario = request.user
     estado = 0
+    mascotas=Mascotas.objects.filter(usuario=usuario.id)
     try:
         informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
     except:
@@ -284,7 +334,6 @@ def peluqueria(request):
             estado = 1
         except:
             estado = 2    
-    mascotas = Mascotas.objects.filter(id=usuario.id)
     try:
         peluqueria = Peluqueria.objects.all().order_by('-fecha')    
         fechaPeluqueria = peluqueria[0]
