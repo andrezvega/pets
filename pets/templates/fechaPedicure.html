@@ -1,0 +1,51 @@
+{% extends 'base_usuario.html' %}
+{% block titulo %} Bienvenido {%endblock%}
+{% block contenido %}
+    <div class="well sponsor">
+        <h3 align="center"> Peluquer&iacute;a </h3>
+        <div class="clearfix">
+                  <div class="well bs-component">
+                                    {% if estado == 2 %}
+                                        <div class="alert alert-dismissable alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>Uy!</strong> <a href="#" class="alert-link">Ha ocurrido un error programando un nuevo pedicure</a> 
+                                        </div> 
+                                    {% endif%}
+                                    {% if estado == 1 %}
+                                        <div class="alert alert-dismissable alert-success">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>Ok !</strong> Ha creado una nueva fecha para pedicure <a href="/bienvenido" class="alert-link"> ver Mis mascotas</a>.
+                                        </div>
+                                    {%endif%}   
+
+                                <form id='formulario' method='post' enctype='multipart/form-data' action='/peluqueria/'>{% csrf_token %}
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="nombre" class="col-lg-12 control-label" >{% if fechaPeluqueria %} 
+                                            <div class="alert alert-dismissable alert-warning">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>Proxima </strong> <a href="#" class="alert-link">Fecha de pedicure {{fechaPeluqueria.fecha}} </a> 
+                                            </div>
+                                            {%else%} 
+                                            <div class="alert alert-dismissable alert-warning">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>Ops!</strong> <a href="#" class="alert-link">No hay fechas programadas de pedicure </a> 
+                                            </div> </label>
+                                         {%endif%}
+                                         <div class="form-group">
+                                            <label for="nombre" class="col-lg-2 control-label">Fecha de pedicure</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control datepicker"  name="fecha" placeholder="Fecha pedicure" required><br>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="mascota" id="id_mascota" value="{{mascota}}">
+                                    </fieldset>
+                            </div>   
+                        </div>
+                        <div class="modal-footer" >
+                            <a href="/peluqueria/" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                            <input type='submit' class="btn btn-primary" value='Guardar'/>
+                        </div>
+                        </form>
+                    </div>
+{% endblock %}

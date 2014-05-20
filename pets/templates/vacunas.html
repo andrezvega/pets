@@ -2,7 +2,7 @@
 {% block titulo %} Medicos {%endblock%}
 {% block contenido %}
     <div class="well sponsor">
-        <h3 align="center"> Vacunas </h3>
+        <h3 align="center"> Vacunas {% if tipo == 1%} Para Gatos {% else %} Para perros {%endif%} </h3>
         <div class="clearfix">
             {% if estado == 2 %}
                     <div class="alert alert-dismissable alert-danger">

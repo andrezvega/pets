@@ -2,11 +2,11 @@
 {% block titulo %} Bienvenido {%endblock%}
 {% block contenido %}
     <div class="well sponsor">
-        <h3 align="center"> Peluquer&iacute;a </h3>
+        <h3 align="center"> Control de vacunas </h3>
         <div class="clearfix">
                   <div class="well bs-component">
                             {% for lista in mascotas %}
-                                <a href="/fechaPeluqueria/{{lista.id}}" style="padding: 5px 5px 5px 5px; margin-left: 30px; margin-top:5px;   " class="btn btn-info">Agregar fecha pedicure a {{lista.nombre}}</a><br><br>
+                                <a href="/vacunas/{{lista.id}}" style="padding: 5px 5px 5px 5px; margin-left: 30px; margin-top:5px;   " class="btn btn-info">Ver vacunas pendientes de {{lista.nombre}}</a><br><br>
                                 <div style=" margin-left: 40px;"></div>
                                 <div style=" margin-left: 40px;" >
                                     <img src="{{MEDIA_URL}}{{lista.imagen}}" class="img-responsive" >

@@ -4,7 +4,20 @@
         <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" >
+            $( document ).ready(function() {
+                $('.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoclose: true,
+
+                })
+            });
+            
+    </script>
+
         <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/datepicker.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
      {%block titulo%}{%endblock%}
@@ -59,7 +72,7 @@
                                     <li ><a href="/bienvenido/">Sintomas</a></li>
                                     <li><a href="/diagnostico/.html">Diagnosticos</a></li>
                                     <li><a href="/preguntas/">Mis Preguntas</a></li>
-                                    <li><a href="/vacunas/">Vacunas</a></li>
+                                    <li><a href="/mascotaVacuna/">Vacunas</a></li>
                                     <li><a href="/peluqueria/">Peluqueria</a></li>
                                 </ul>
                             </div>
@@ -138,4 +151,5 @@
         </div>
 
     </body>
+
 </html>
