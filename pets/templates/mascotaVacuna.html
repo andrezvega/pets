@@ -5,6 +5,18 @@
         <h3 align="center"> Control de vacunas </h3>
         <div class="clearfix">
                   <div class="well bs-component">
+                            {% if estado == 2 %}
+                                <div class="alert alert-dismissable alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Uy!</strong> <a href="#" class="alert-link">Ha ocurrido un error al aplicar la vacuna</a> 
+                                </div> 
+                            {% endif%}
+                            {% if estado == 1 %}
+                                <div class="alert alert-dismissable alert-success">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>Ok !</strong> Ha aplicado una nueva vacuna 
+                                </div>
+                            {%endif%}
                             {% for lista in mascotas %}
                                 <a href="/vacunas/{{lista.id}}" style="padding: 5px 5px 5px 5px; margin-left: 30px; margin-top:5px;   " class="btn btn-info">Ver vacunas pendientes de {{lista.nombre}}</a><br><br>
                                 <div style=" margin-left: 40px;"></div>

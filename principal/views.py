@@ -262,18 +262,7 @@ def pregunta(request):
     else:       
         return render_to_response('preguntas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'preguntas':preguntas,'formulario':formulario}, context_instance=RequestContext(request))    
 
-@login_required(login_url='/ingresar')
-def vacunas(request,idMascota):
-    usuario = request.user
-    estado=0
-    try:
-        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
-    except:
-        informacionUsuario=1
-
-    mascota = Mascotas.objects.get(id=idMascota) 
-    vacunas = Vacuna.objects.filter(animal=mascota.tipo)    
-    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'estado':estado,'vacunas':vacunas, 'tipo':mascota.tipo}, context_instance=RequestContext(request))    
+   
 
 @login_required(login_url='/ingresar')
 
@@ -359,7 +348,24 @@ def fechaPeluqueria(request,idMascota):
         except:
             fechaPeluqueria = False  
         return render_to_response('fechaPedicure.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascota':idMascota,'estado':estado,'fechaPeluqueria':fechaPeluqueria}, context_instance=RequestContext(request))            
-      
+   
+
+@login_required(login_url='/ingresar')
+def vacunas(request,idMascota):
+    usuario = request.user
+    estado=0
+    try:
+        informacionUsuario = ComplementoUsuario.objects.get(usuario_id=usuario.id)
+    except:
+        informacionUsuario=1
+
+    mascota = Mascotas.objects.get(id=idMascota) 
+    vac = VacunaMascota.objects.filter(mascota = mascota) 
+    for v in vac:
+        vacunas = Vacuna.objects.filter(id = v.vacuna.id )    
+    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'estado':estado,'vacunas':vacunas, 'tipo':mascota.tipo,'mascotaId':mascota.id}, context_instance=RequestContext(request))    
+
+
 @login_required(login_url='/ingresar')    
 def mascotaVacuna(request):
     usuario = request.user
@@ -369,15 +375,17 @@ def mascotaVacuna(request):
     except:
         informacionUsuario=1
     if request.POST:    
-        try:
-            peluqueria = Peluqueria() 
-            peluqueria.fecha = request.POST['fecha']
-            m = Mascotas.objects.get(id=request.POST['mascota'])
-            peluqueria.mascota = m
-            peluqueria.save()
+        vacunas = request.POST['vacuna[]']
+        m = Mascotas.objects.get(id=request.POST['mascota'])
+        for v in vacunas:
+            vacunaM = VacunaMascota() 
+            vac = Vacuna.objects.get(id=v)
+            vacunaM.vacuna = vac
+            vacunaM.mascota = m
+            vacunaM.save()
             estado = 1
-        except:
-            estado = 2
+        mascotas=Mascotas.objects.filter(usuario=usuario.id)
+        return render_to_response('mascotaVacuna.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas':mascotas,'estado':estado}, context_instance=RequestContext(request))                    
     else:
         try:
             mascotas=Mascotas.objects.filter(usuario=usuario.id)
