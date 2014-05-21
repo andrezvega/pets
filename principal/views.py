@@ -359,11 +359,10 @@ def vacunas(request,idMascota):
     except:
         informacionUsuario=1
 
-    mascota = Mascotas.objects.get(id=idMascota) 
-    vac = VacunaMascota.objects.filter(mascota = mascota) 
-    for v in vac:
-        vacunas = Vacuna.objects.filter(id = v.vacuna.id )    
-    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'estado':estado,'vacunas':vacunas, 'tipo':mascota.tipo,'mascotaId':mascota.id}, context_instance=RequestContext(request))    
+    query = " select vacunaAplicada.*,mascota.*,vacuna.* from principal_mascotas as mascota,principal_vacuna as vacuna, principal_vacunamascota as vacunaAplicada  where vacuna.id != vacunaAplicada.vacuna_id  AND vacuna.animal = mascota.tipo AND mascota.id = %s " % idMascota 
+    vacunas=Vacuna.objects.raw(query)
+
+    return render_to_response('vacunas.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'estado':estado,'vacunas':vacunas}, context_instance=RequestContext(request))    
 
 
 @login_required(login_url='/ingresar')    
@@ -377,13 +376,16 @@ def mascotaVacuna(request):
     if request.POST:    
         vacunas = request.POST['vacuna[]']
         m = Mascotas.objects.get(id=request.POST['mascota'])
+        vacunaM = VacunaMascota() 
         for v in vacunas:
-            vacunaM = VacunaMascota() 
-            vac = Vacuna.objects.get(id=v)
-            vacunaM.vacuna = vac
-            vacunaM.mascota = m
-            vacunaM.save()
-            estado = 1
+            try:
+                vac = Vacuna.objects.get(id=v)
+                vacunaM.vacuna = vac
+                vacunaM.mascota = m
+                vacunaM.save()
+                estado = 1
+            except:
+                estado= 0   
         mascotas=Mascotas.objects.filter(usuario=usuario.id)
         return render_to_response('mascotaVacuna.html', {'usuario':usuario,'informacionUsuario':informacionUsuario,'mascotas':mascotas,'estado':estado}, context_instance=RequestContext(request))                    
     else:
